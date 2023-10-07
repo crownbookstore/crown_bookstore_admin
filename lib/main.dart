@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
     Get.put(BookController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Crown Bookstore',
       theme: AppTheme.lightTheme(),
       initialRoute: getInitialRoute(),
       getPages: getPages,
