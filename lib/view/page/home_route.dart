@@ -8,6 +8,7 @@ import 'package:book_store_admin/utils/app_image.dart';
 import 'package:book_store_admin/utils/func.dart';
 import 'package:book_store_admin/view/page/authors_data_table.dart';
 import 'package:book_store_admin/view/page/books_data_table.dart';
+import 'package:book_store_admin/view/page/division_data_table.dart';
 import 'package:book_store_admin/view/widgets/hover_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -199,7 +200,11 @@ class HomeRoute extends StatelessWidget {
                             : appPage == const AppPage.book()
                                 ? BooksDataTable(
                                     isTablet: isTablet, isDesktop: isDesktop)
-                                : const SizedBox(),
+                                : appPage == const AppPage.division()
+                                    ? DivisionDataTable(
+                                        isTablet: isTablet,
+                                        isDesktop: isDesktop)
+                                    : const SizedBox(),
                   );
                 }),
               ),
@@ -374,6 +379,58 @@ class HomeRoute extends StatelessWidget {
                                   ))),
                             );
                           }),
+                          verticalSpace(),
+                          //Division
+                          Obx(() {
+                            final appPage = homeController.appPage.value;
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                left: 10,
+                                right: 10,
+                              ),
+                              child: HoverButton(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 10,
+                                    horizontal: 0,
+                                  ),
+                                  borderRadius:
+                                      const BorderRadius.all(Radius.circular(
+                                    15,
+                                  )),
+                                  hoverColor: Colors.grey.shade200,
+                                  color: appPage == AppPage.division()
+                                      ? Colors.grey.shade200
+                                      : Colors.white,
+                                  splashColor: Colors.black,
+                                  onPressed: () {
+                                    homeController
+                                        .changeAppPage(AppPage.division());
+                                  },
+                                  child: IntrinsicHeight(
+                                      child: Row(
+                                    children: [
+                                      VerticalDivider(
+                                        color: appPage == AppPage.division()
+                                            ? theme.primaryColor
+                                            : Colors.white,
+                                        thickness: 3,
+                                      ),
+                                      horizontalSpace(),
+                                      SvgPicture.asset(
+                                        AppImage.division,
+                                        width: 25,
+                                        height: 25,
+                                      ),
+                                      horizontalSpace(),
+                                      Text(
+                                        "Divisions",
+                                        style: textTheme.displayMedium,
+                                      ),
+                                    ],
+                                  ))),
+                            );
+                          }),
+
                           const SizedBox(
                             height: 100,
                           ),
@@ -421,8 +478,10 @@ class HomeRoute extends StatelessWidget {
       return "/Authors";
     } else if (appPage == AppPage.book()) {
       return "/Books";
+    } else if (appPage == AppPage.division()) {
+      return "/Divisions";
     } else {
-      return "";
+      return "/";
     }
   }
 }

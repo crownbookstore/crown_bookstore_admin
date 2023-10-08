@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../model/author.dart';
 import '../model/book.dart';
+import '../model/division.dart';
 
 class FirebaseReference {
   static FirebaseStorage firebaseStorage = FirebaseStorage.instance;
@@ -35,6 +36,14 @@ class FirebaseReference {
           );
   static DocumentReference<Book> bookDocument(String id) =>
       bookCollection.doc(id);
+
+  static CollectionReference<Division> divisionCollection =
+      firestore.collection("divisions").withConverter<Division>(
+            fromFirestore: (snap, __) => Division.fromJson(snap.data()!),
+            toFirestore: (book, __) => book.toJson(),
+          );
+  static DocumentReference<Division> divisionDocument(String id) =>
+      divisionCollection.doc(id);
 
   static Future<String> uploadImage(String path, String image) async {
     Reference storageReference = firebaseStorage.ref().child('$path/$image');

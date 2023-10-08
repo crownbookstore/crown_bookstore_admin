@@ -19,4 +19,5 @@ class AppImage {
   static const google = "assets/icons/google.png";
   static const accessDenied = "assets/icons/access-denied.png";
   static const checkAuthorize = "assets/icons/fact.png";
+  static const division = "assets/icons/map.svg";
 }

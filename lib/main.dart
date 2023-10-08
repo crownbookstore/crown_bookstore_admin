@@ -2,6 +2,7 @@ import 'package:book_store_admin/controller/admin_login_controller.dart';
 import 'package:book_store_admin/controller/author_controller.dart';
 import 'package:book_store_admin/controller/book_controller.dart';
 import 'package:book_store_admin/controller/category_controller.dart';
+import 'package:book_store_admin/controller/division_controller.dart';
 import 'package:book_store_admin/controller/home_controller.dart';
 import 'package:book_store_admin/router/router.dart';
 import 'package:book_store_admin/theme/app_theme.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
     Get.put(CategoryController());
     Get.put(AuthorController());
     Get.put(BookController());
+    Get.put(DivisionController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Crown Bookstore',
