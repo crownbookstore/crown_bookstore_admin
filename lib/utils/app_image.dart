@@ -20,4 +20,5 @@ class AppImage {
   static const accessDenied = "assets/icons/access-denied.png";
   static const checkAuthorize = "assets/icons/fact.png";
   static const division = "assets/icons/map.svg";
+  static const order = "assets/icons/note.svg";
 }

@@ -3,12 +3,14 @@ import 'package:book_store_admin/controller/author_controller.dart';
 import 'package:book_store_admin/controller/book_controller.dart';
 import 'package:book_store_admin/controller/category_controller.dart';
 import 'package:book_store_admin/controller/home_controller.dart';
+import 'package:book_store_admin/controller/order_controller.dart';
 import 'package:book_store_admin/model/app_page.dart';
 import 'package:book_store_admin/utils/app_image.dart';
 import 'package:book_store_admin/utils/func.dart';
 import 'package:book_store_admin/view/page/authors_data_table.dart';
 import 'package:book_store_admin/view/page/books_data_table.dart';
 import 'package:book_store_admin/view/page/division_data_table.dart';
+import 'package:book_store_admin/view/page/order_data_table.dart';
 import 'package:book_store_admin/view/widgets/hover_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,6 +37,7 @@ class HomeRoute extends StatelessWidget {
     final CategoryController categoryController = Get.find();
     final AuthorController authorController = Get.find();
     final BookController bookController = Get.find();
+    final OrderController orderController = Get.find();
     final colorLightTextTheme = textTheme.displayMedium?.copyWith(
       color: Colors.white,
     );
@@ -69,9 +72,10 @@ class HomeRoute extends StatelessWidget {
                   ),
             const Expanded(child: SizedBox()),
             Obx(() {
+              final count = orderController.purchaseModels.length;
               final appPage = homeController.appPage.value;
               return Text(
-                getTitle(appPage),
+                getTitle(appPage, orderCount: count),
                 style: textTheme.displayLarge,
               );
             }),
@@ -204,7 +208,11 @@ class HomeRoute extends StatelessWidget {
                                     ? DivisionDataTable(
                                         isTablet: isTablet,
                                         isDesktop: isDesktop)
-                                    : const SizedBox(),
+                                    : appPage == const AppPage.order()
+                                        ? OrderDataTable(
+                                            isTablet: isTablet,
+                                            isDesktop: isDesktop)
+                                        : const SizedBox(),
                   );
                 }),
               ),
@@ -430,6 +438,67 @@ class HomeRoute extends StatelessWidget {
                                   ))),
                             );
                           }),
+                          verticalSpace(),
+                          //Orders
+                          Obx(() {
+                            final count = orderController.newOrderCount;
+                            final appPage = homeController.appPage.value;
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                left: 10,
+                                right: 10,
+                              ),
+                              child: HoverButton(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 10,
+                                    horizontal: 0,
+                                  ),
+                                  borderRadius:
+                                      const BorderRadius.all(Radius.circular(
+                                    15,
+                                  )),
+                                  hoverColor: Colors.grey.shade200,
+                                  color: appPage == AppPage.order()
+                                      ? Colors.grey.shade200
+                                      : Colors.white,
+                                  splashColor: Colors.black,
+                                  onPressed: () {
+                                    homeController
+                                        .changeAppPage(AppPage.order());
+                                  },
+                                  child: IntrinsicHeight(
+                                      child: Row(
+                                    children: [
+                                      VerticalDivider(
+                                        color: appPage == AppPage.order()
+                                            ? theme.primaryColor
+                                            : Colors.white,
+                                        thickness: 3,
+                                      ),
+                                      horizontalSpace(),
+                                      SvgPicture.asset(
+                                        AppImage.order,
+                                        width: 25,
+                                        height: 25,
+                                      ),
+                                      horizontalSpace(),
+                                      Text(
+                                        "Orders",
+                                        style: textTheme.displayMedium,
+                                      ),
+                                      horizontalSpace(),
+                                      CircleAvatar(
+                                        radius: 15,
+                                        backgroundColor: theme.primaryColor,
+                                        child: Text("$count",
+                                            style: textTheme.displaySmall
+                                                ?.copyWith(
+                                                    color: Colors.white)),
+                                      )
+                                    ],
+                                  ))),
+                            );
+                          }),
 
                           const SizedBox(
                             height: 100,
@@ -471,7 +540,7 @@ class HomeRoute extends StatelessWidget {
     );
   }
 
-  String getTitle(AppPage appPage) {
+  String getTitle(AppPage appPage, {required int orderCount}) {
     if (appPage == AppPage.category()) {
       return "/Categories";
     } else if (appPage == AppPage.author()) {
@@ -480,6 +549,8 @@ class HomeRoute extends StatelessWidget {
       return "/Books";
     } else if (appPage == AppPage.division()) {
       return "/Divisions";
+    } else if (appPage == AppPage.order()) {
+      return "/$orderCount Orders";
     } else {
       return "/";
     }

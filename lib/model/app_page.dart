@@ -8,4 +8,5 @@ class AppPage with _$AppPage {
   const factory AppPage.author() = _Author;
   const factory AppPage.book() = _Book;
   const factory AppPage.division() = _Division;
+  const factory AppPage.order() = _Order;
 }

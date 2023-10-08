@@ -15,3 +15,8 @@ List<String> getStringList(String v) {
   }
   return subName;
 }
+
+String dateFormat(String v) {
+  final list = v.split(" ");
+  return list.first;
+}
