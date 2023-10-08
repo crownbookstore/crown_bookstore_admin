@@ -130,7 +130,7 @@ class DivisionController extends GetxController {
     await FirebaseReference.divisionDocument(id).delete();
     hideLoading();
     divisions.removeWhere((element) => element.id == id);
-    successSnap("Category is deleted successfully");
+    successSnap("Division is deleted successfully");
   }
 
   void clearAll() {
