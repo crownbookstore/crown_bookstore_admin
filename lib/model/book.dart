@@ -11,6 +11,7 @@ class Book with _$Book {
     required String description,
     required String image,
     required int price,
+    int? discountPrice,
     double? score,
     String? authorId,
     String? categoryId,

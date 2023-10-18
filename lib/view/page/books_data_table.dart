@@ -451,6 +451,35 @@ class BooksDataTable extends StatelessWidget {
                                     //Score
                                     verticalSpace(),
                                     Text(
+                                      "Discount Price:",
+                                      style: textTheme.displaySmall?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    verticalSpace(v: 10),
+                                    SizedBox(
+                                      height: 30,
+                                      child: TextFormField(
+                                        style: textTheme.displaySmall,
+                                        controller: bookController
+                                            .discountPriceTextController,
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.only(
+                                            left: 10,
+                                            right: 10,
+                                          ),
+                                          border: dropDownBorder(),
+                                          disabledBorder: dropDownBorder(),
+                                          focusedBorder: dropDownBorder(),
+                                          enabledBorder: dropDownBorder(),
+                                          /*  labelText: "Name", */
+                                          floatingLabelBehavior:
+                                              FloatingLabelBehavior.always,
+                                        ),
+                                      ),
+                                    ),
+                                    verticalSpace(),
+                                    Text(
                                       "Score:",
                                       style: textTheme.displaySmall?.copyWith(
                                         fontWeight: FontWeight.bold,

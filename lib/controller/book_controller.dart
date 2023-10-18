@@ -26,6 +26,8 @@ class BookController extends GetxController {
   TextEditingController imageTextController = TextEditingController();
   TextEditingController descTextController = TextEditingController();
   TextEditingController priceTextController = TextEditingController();
+  TextEditingController discountPriceTextController = TextEditingController();
+
   TextEditingController scoreTextController = TextEditingController();
   Rxn<Author> selectedAuthor = Rxn<Author>();
   Rxn<AppCategory> selectedCategory = Rxn<AppCategory>();
@@ -61,6 +63,7 @@ class BookController extends GetxController {
     imageTextController.clear();
     descTextController.clear();
     priceTextController.clear();
+    discountPriceTextController.clear();
     scoreTextController.clear();
     selectedAuthor.value = null;
     selectedCategory.value = null;
@@ -78,6 +81,7 @@ class BookController extends GetxController {
       imageTextController.text = v.image;
       descTextController.text = v.description;
       priceTextController.text = v.price.toString();
+      discountPriceTextController.text = v.discountPrice.toString();
       scoreTextController.text = v.score.toString();
       /* selectedAuthor.value =
           authorController.authors.firstWhere((e) => e.id == v.authorId);
@@ -157,6 +161,7 @@ class BookController extends GetxController {
         description: descTextController.text,
         image: imageTextController.text,
         price: int.parse(priceTextController.text),
+        discountPrice: int.tryParse(discountPriceTextController.text),
         score: double.tryParse(scoreTextController.text),
         dateTime: DateTime.now(),
         searchList: getStringList(titleTextController.text),
@@ -212,6 +217,7 @@ class BookController extends GetxController {
         description: descTextController.text,
         image: imageTextController.text,
         price: int.parse(priceTextController.text),
+        discountPrice: int.tryParse(discountPriceTextController.text),
         score: double.tryParse(scoreTextController.text),
         dateTime: DateTime.now(),
         searchList: getStringList(titleTextController.text),
